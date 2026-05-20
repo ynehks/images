@@ -9,22 +9,25 @@ OUTPUT_FOLDER = "results"
 os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 images = []
 for file in os.listdir(INPUT_FOLDER):
+
     if file.endswith(".jpg") or \
        file.endswith(".png") or \
        file.endswith(".jpeg"):
+
         images.append(file)
 if len(images) == 0:
     print("Изображения не найдены")
     exit()
 csv_file = open("report.csv", "w", newline="")
+
 writer = csv.writer(csv_file)
+
 writer.writerow([
     "Image",
     "Objects",
     "Round Objects",
     "Rectangle Objects"
 ])
-
 for image_name in images:
     print(f"Обработка: {image_name}")
     path = os.path.join(INPUT_FOLDER, image_name)
@@ -48,7 +51,9 @@ for image_name in images:
     count = 0
     round_objects = 0
     rectangle_objects = 0
+
     for cnt in contours:
+
         area = cv2.contourArea(cnt)
         if area < 100:
             continue
@@ -65,14 +70,23 @@ for image_name in images:
         else:
             roundness = 0
         if roundness > 0.8:
+
             color = (0, 255, 0)
+
             round_objects += 1
+
             shape = "Circle"
+
         else:
+
             color = (0, 0, 255)
+
             rectangle_objects += 1
+
             shape = "Rectangle"
+
         cv2.drawContours(result, [cnt], -1, color, 2)
+
         cv2.rectangle(
             result,
             (x, y),
@@ -80,6 +94,7 @@ for image_name in images:
             color,
             2
         )
+
         cv2.circle(
             result,
             (int(cx_circle), int(cy_circle)),
@@ -94,6 +109,7 @@ for image_name in images:
             (255, 0, 255),
             -1
         )
+
         cv2.putText(
             result,
             str(count),
@@ -103,6 +119,8 @@ for image_name in images:
             color,
             2
         )
+
+        
         cv2.putText(
             result,
             shape,
@@ -112,6 +130,8 @@ for image_name in images:
             color,
             2
         )
+
+        # Площадь
         cv2.putText(
             result,
             f"S={int(area)}",
@@ -121,6 +141,7 @@ for image_name in images:
             color,
             2
         )
+
     cv2.putText(
         result,
         f"Objects: {count}",
