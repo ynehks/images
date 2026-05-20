@@ -48,3 +48,27 @@ for image_name in images:
     count = 0
     round_objects = 0
     rectangle_objects = 0
+    for cnt in contours:
+        area = cv2.contourArea(cnt)
+        if area < 100:
+            continue
+        count += 1
+        perimeter = cv2.arcLength(cnt, True)
+        x, y, w, h = cv2.boundingRect(cnt)
+        (cx_circle, cy_circle), radius = \
+            cv2.minEnclosingCircle(cnt)
+        cx = x + w // 2
+        cy = y + h // 2
+        if perimeter != 0:
+            roundness = \
+                4 * math.pi * area / (perimeter ** 2)
+        else:
+            roundness = 0
+        if roundness > 0.8:
+            color = (0, 255, 0)
+            round_objects += 1
+            shape = "Circle"
+        else:
+            color = (0, 0, 255)
+            rectangle_objects += 1
+            shape = "Rectangle"
