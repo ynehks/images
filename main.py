@@ -72,3 +72,52 @@ for image_name in images:
             color = (0, 0, 255)
             rectangle_objects += 1
             shape = "Rectangle"
+        cv2.drawContours(result, [cnt], -1, color, 2)
+        cv2.rectangle(
+            result,
+            (x, y),
+            (x + w, y + h),
+            color,
+            2
+        )
+        cv2.circle(
+            result,
+            (int(cx_circle), int(cy_circle)),
+            int(radius),
+            (255, 255, 0),
+            1
+        )
+        cv2.circle(
+            result,
+            (cx, cy),
+            4,
+            (255, 0, 255),
+            -1
+        )
+        cv2.putText(
+            result,
+            str(count),
+            (cx, cy),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            color,
+            2
+        )
+        cv2.putText(
+            result,
+            shape,
+            (x, y - 10),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            color,
+            2
+        )
+        cv2.putText(
+            result,
+            f"S={int(area)}",
+            (x, y + h + 20),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            color,
+            2
+        )
