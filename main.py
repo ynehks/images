@@ -121,3 +121,48 @@ for image_name in images:
             color,
             2
         )
+    cv2.putText(
+        result,
+        f"Objects: {count}",
+        (10, 30),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        1,
+        (255, 0, 0),
+        2
+    )
+    cv2.putText(
+        result,
+        f"Round: {round_objects}",
+        (10, 70),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.8,
+        (0, 255, 0),
+        2
+    )
+    cv2.putText(
+        result,
+        f"Rectangle: {rectangle_objects}",
+        (10, 110),
+        cv2.FONT_HERSHEY_SIMPLEX,
+        0.8,
+        (0, 0, 255),
+        2
+    )
+    save_path = os.path.join(
+        OUTPUT_FOLDER,
+        f"result_{image_name}"
+    )
+    cv2.imwrite(save_path, result)
+    writer.writerow([
+        image_name,
+        count,
+        round_objects,
+        rectangle_objects
+    ])
+    cv2.imshow("Result", result)
+    key = cv2.waitKey(300)
+    if key == 27:
+        break
+csv_file.close()
+cv2.destroyAllWindows()
+print("Обработка завершена")
