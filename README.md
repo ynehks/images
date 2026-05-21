@@ -1,7 +1,5 @@
 
-<img src="https://img.shields.io/badge/Python-3.x-blue?logo=python" alt="Python">
-<img src="https://img.shields.io/badge/OpenCV-4.8+-green?logo=opencv" alt="OpenCV">
-<img src="https://img.shields.io/badge/License-MIT-yellow" alt="License">
+ 
 
 **Автоматическая классификация кругов и прямоугольников на изображениях**
 
